@@ -45,8 +45,8 @@ public class ScrollbarController : MonoBehaviour {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) {
             Vector2 touchDelta1 = Input.GetTouch(0).position - touchStartPos;
             float verticalSwipe = Mathf.Sign(touchDelta1.y) * touchDelta1.magnitude;
-            float unityDistance = (verticalSwipe / Screen.dpi) * 0.05f;
-            totalDistance += unityDistance;
+            float unityDistance = (verticalSwipe / Screen.dpi) * 0.15f;
+            totalDistance -= unityDistance;
 
             if (totalDistance <= 0) {
                 totalDistance = 0;
