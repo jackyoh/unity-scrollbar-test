@@ -31,7 +31,6 @@ public class ScrollbarController : MonoBehaviour {
 
     private Vector2 touchStartPos;
     private float totalDistance;
-    // private float scrollbarValue = 0.0f;
 
     void Start() {
         scrollbar.value = scrollPos;
@@ -39,49 +38,28 @@ public class ScrollbarController : MonoBehaviour {
     }
 
     void Update() {
-        //float verticalScrollPosition = scrollRect.verticalNormalizedPosition;
-        //Debug.Log(verticalScrollPosition);
-
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) {
             touchStartPos = Input.GetTouch(0).position;
-            //totalDistance = 0f;
         }
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) {
             Vector2 touchDelta1 = Input.GetTouch(0).position - touchStartPos;
             float verticalSwipe = Mathf.Sign(touchDelta1.y) * touchDelta1.magnitude;
-            float unityDistance = (verticalSwipe / Screen.dpi) * 0.1f;
-
-            /*Vector2 touchDelta = Input.GetTouch(0).deltaPosition;
-            float pixelDistance = touchDelta.magnitude;
-            float unityDistance = pixelDistance / Screen.dpi;*/
-            
+            float unityDistance = (verticalSwipe / Screen.dpi) * 0.05f;
             totalDistance += unityDistance;
 
-            //Debug.Log("TotalDistance:" + totalDistance + ", UnityDistance:" + unityDistance);
-            /*if (verticalSwipe > 0) {
-                scrollbarValue = scrollbarValue + totalDistance;
-            } else {
-                scrollbarValue = scrollbarValue - totalDistance;
-            }
-
-            Debug.Log(scrollbarValue);*/
             if (totalDistance <= 0) {
                 totalDistance = 0;
             } else if (totalDistance >= 1) {
                 totalDistance = 1;
             }
-            
-            // Debug.Log("Total distance:" + totalDistance);
             scrollbar.value = totalDistance;
         }
-
 
         float percentage = 1.0f / totalPage;
         scrollbar.size = percentage;
         scrollPos = scrollbar.value;
         
-
         int currentPage = 0;
         for (int i = 0 ; i < totalPage ; i++) {
             if (scrollPos >= (percentage * i) && scrollPos <= ((percentage * i) + percentage)) {
