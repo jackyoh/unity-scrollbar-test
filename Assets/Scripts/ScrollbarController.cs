@@ -15,8 +15,6 @@ public class ScrollbarController : MonoBehaviour {
     private Sprite imageSprite8;
     private Sprite imageSprite9;
 
-    // public ScrollRect scrollRect;
-
     public Image image1;
     public Image image2; 
     public Image image3;
